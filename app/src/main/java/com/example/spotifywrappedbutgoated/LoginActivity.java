@@ -20,6 +20,7 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences msharedPreferences;
     private RequestQueue queue;
+    private ArrayList<Song> topTracks;
     private boolean flag;
 
     private static final String CLIENT_ID = "2ba604432e854103b6e06527656074cc";
@@ -40,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Objects.requireNonNull(getSupportActionBar()).hide();
-
 
         authenticateSpotify();
 
@@ -69,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor = getSharedPreferences("SPOTIFY", 0).edit();
                     editor.putString("token", response.getAccessToken());
                     Log.d("STARTING", "GOT AUTH TOKEN");
-                    editor.apply();
-                    //waitForUserInfo();
+                    editor.commit();
+                    waitForUserInfo();
                     break;
 
                 // Auth flow returned an error
@@ -103,6 +104,16 @@ public class LoginActivity extends AppCompatActivity {
     private static String getStringByIdName(Context context, String idName) {
         Resources res = context.getResources();
         return res.getString(res.getIdentifier(idName, "string", context.getPackageName()));
+    }
+
+    private void waitForUserInfo() {
+        //This method should be changed in some way to get the user ID and password
+        startWrappedActivity();
+    }
+
+    private void startWrappedActivity() {
+        Intent newintent = new Intent(LoginActivity.this, WrappedActivity.class);
+        startActivity(newintent);
     }
 
 }
