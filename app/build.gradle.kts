@@ -35,7 +35,9 @@ dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+    implementation("io.grpc:grpc-okhttp:1.32.2")
     implementation("com.spotify.android:auth:1.2.5")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("com.android.volley:volley:1.2.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
