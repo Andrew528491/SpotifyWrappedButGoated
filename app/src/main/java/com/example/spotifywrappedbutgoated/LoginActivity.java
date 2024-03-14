@@ -1,5 +1,6 @@
 package com.example.spotifywrappedbutgoated;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -11,15 +12,22 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.util.*;
+import java.util.Map;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,6 +42,11 @@ public class LoginActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1337;
     private static final String SCOPES = "user-top-read,user-read-recently-played";
 
+    FirebaseFirestore firestore;
+
+    EditText username, password;
+
+    Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +57,29 @@ public class LoginActivity extends AppCompatActivity {
 
         authenticateSpotify();
 
+        firestore = FirebaseFirestore.getInstance();
+
+        Map<String,String> userLoginInfo = new HashMap<>();
+
+
         msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(this);
+
+        loginButton.setOnClickListener(v -> {
+            userLoginInfo.put(username.getText().toString().trim(), password.getText().toString().trim());
+        });
+
+        firestore.collection("users").add(userLoginInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getApplicationContext(), "User Login Successful", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "User Login Failed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void authenticateSpotify(){
