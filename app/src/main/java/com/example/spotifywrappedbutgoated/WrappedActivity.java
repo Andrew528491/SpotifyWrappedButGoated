@@ -22,9 +22,12 @@ public class WrappedActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         songService = new SongService(getApplicationContext());
         getTracks();
+        System.out.println(topTracks);
     }
 
     private void getTracks() {
-        songService.getTopTracks(() -> topTracks = songService.getSongs());
+        songService.getTopTracks(() -> {
+            topTracks = songService.getSongs();
+        });
     }
 }

@@ -45,10 +45,12 @@ public class SongService {
                     for (int n = 0; n < Objects.requireNonNull(jsonArray).length(); n++) {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);
-                            object = object.optJSONObject("track");
-                            assert object != null;
-                            Song song = gson.fromJson(object.toString(), Song.class);
-                            songs.add(song);
+                            String name = object.getString("name");
+                            String id = object.getString("id");
+                            //object = object.optJSONObject("tracks");
+                            //assert object != null;
+                            Song song = new Song(name, id);
+                            System.out.println(song);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
