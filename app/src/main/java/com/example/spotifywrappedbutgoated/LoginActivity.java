@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
-
+import java.util.*;
 import java.util.*;
 import java.util.Map;
 import java.util.Objects;
@@ -54,11 +54,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-
-        authenticateSpotify();
-
         firestore = FirebaseFirestore.getInstance();
-
+        loginButton = findViewById(R.id.loginButton);
         Map<String,String> userLoginInfo = new HashMap<>();
 
 
@@ -67,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> {
             userLoginInfo.put(username.getText().toString().trim(), password.getText().toString().trim());
+            authenticateSpotify();
         });
 
         firestore.collection("users").add(userLoginInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
