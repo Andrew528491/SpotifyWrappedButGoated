@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_home_black_24dp"
         android:translationX="450px"
-        android:translationY="1710px" />
+        android:translationY="1705px" />
 
 </FrameLayout>
