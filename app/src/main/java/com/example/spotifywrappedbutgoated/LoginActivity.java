@@ -18,15 +18,18 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
-import java.util.*;
-import java.util.*;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,52 +38,73 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences msharedPreferences;
     private RequestQueue queue;
-    private boolean flag;
 
     private static final String CLIENT_ID = "2ba604432e854103b6e06527656074cc";
     private static final String REDIRECT_URI = "com.spotifywrappedbutgoated://callback";
     private static final int REQUEST_CODE = 1337;
     private static final String SCOPES = "user-top-read,user-read-recently-played";
 
-    FirebaseFirestore firestore;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText username, password;
-
-    Button loginButton;
-
+    Button signupButton, loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        firestore = FirebaseFirestore.getInstance();
-        loginButton = findViewById(R.id.loginButton);
-        Map<String,String> userLoginInfo = new HashMap<>();
-
+        signupButton = findViewById(R.id.signupButton);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
 
         msharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(this);
 
-        loginButton.setOnClickListener(v -> {
-            userLoginInfo.put(username.getText().toString().trim(), password.getText().toString().trim());
-            authenticateSpotify();
+        signupButton.setOnClickListener(v -> {
+
+            String userText = username.getText().toString().trim();
+            String passText = password.getText().toString().trim();
+
+//             Prepare the user information to be saved in Firestore
+            Map<String, String> newUser = new HashMap<>();
+            newUser.put("password", passText);
+
+            // Add a new document to the "users" collection
+            db.collection("users").document(userText)
+                    .set(newUser)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            authenticateSpotify(); // This can remain the same if you need to authenticate with Spotify upon signup
+                            Toast.makeText(getApplicationContext(), "Signup Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Signup Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
-        firestore.collection("users").add(userLoginInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getApplicationContext(), "User Login Successful", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "User Login Failed", Toast.LENGTH_LONG).show();
-            }
+        loginButton.setOnClickListener(v -> {
+
+            String userText = username.getText().toString().trim();
+            String passText = password.getText().toString().trim();
+
+            db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+
+                    }
+
+                }
+            });
         });
     }
 
-    private void authenticateSpotify(){
+    private void authenticateSpotify() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
         builder.setScopes(new String[]{SCOPES});
         AuthorizationRequest request = builder.build();
@@ -91,29 +115,39 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        // Check if result comes from the login call
         if (requestCode == REQUEST_CODE) {
             AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
 
             switch (response.getType()) {
-                // Successful response, authorization token has been received
                 case TOKEN:
                     editor = getSharedPreferences("SPOTIFY", 0).edit();
                     editor.putString("token", response.getAccessToken());
-                    Log.d("STARTING", "GOT AUTH TOKEN");
                     editor.apply();
-                    //waitForUserInfo();
+                    Log.d("STARTING", "GOT AUTH TOKEN");
+                    // Handle successful Spotify authentication, such as navigating to another activity
                     break;
-
-                // Auth flow returned an error
                 case ERROR:
+                    // Handle Spotify authentication error
                     displayExceptionMessage(getStringByIdName(this, "authorization_error"), getStringByIdName(this, "authorization_error_description_spotify"), this);
                     break;
-
                 default:
+                    // Handle other cases, such as user cancellation
                     displayExceptionMessage(getStringByIdName(this, "authorization_error"), getStringByIdName(this, "authorization_error_description_appbackend"), this);
                     break;
             }
+        }
+    }
+
+    private void performUserLogin(String username, String password, LoginCallback callback) {
+        // Implement your login logic here, this is just a placeholder
+        boolean loginSuccess = true; // Replace this with actual login success check
+
+        if (loginSuccess) {
+            // Login successful, call onSuccess
+            callback.onSuccess();
+        } else {
+            // Login failed, call onFailure
+            callback.onFailure();
         }
     }
 
@@ -121,13 +155,12 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(reportActivity);
         builder.setTitle(title);
         builder.setMessage(msg);
-        builder.setNeutralButton("I understand",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+        builder.setNeutralButton("I understand", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog alert = builder.create();
         alert.show();
     }
@@ -137,4 +170,8 @@ public class LoginActivity extends AppCompatActivity {
         return res.getString(res.getIdentifier(idName, "string", context.getPackageName()));
     }
 
+    interface LoginCallback {
+        void onSuccess();
+        void onFailure();
+    }
 }
