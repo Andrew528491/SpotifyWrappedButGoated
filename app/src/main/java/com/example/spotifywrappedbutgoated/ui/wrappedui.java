@@ -23,6 +23,7 @@ public class wrappedui extends Fragment {
 
     private WrappeduiViewModel mViewModel;
     ListView listView;
+    ArrayList<String> arrayList = new ArrayList<>();
 
     FragmentWrappeduiBinding binding;
     public static wrappedui newInstance() {
@@ -36,7 +37,7 @@ public class wrappedui extends Fragment {
         binding = FragmentWrappeduiBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         listView = binding.list;
-        ArrayList<String> arrayList = new ArrayList<>();
+
         for (int i = 0; i < 5; i++) {
             arrayList.add("SONG NAME");
         }
