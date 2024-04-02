@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        loginButton = findViewById(R.id.loginButton);
         signupButton = findViewById(R.id.signupButton);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -93,12 +95,25 @@ public class LoginActivity extends AppCompatActivity {
             String passText = password.getText().toString().trim();
 
             db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                boolean correctPass = false;
+                boolean userExists = false;
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-
+                        for (QueryDocumentSnapshot user : task.getResult()) {
+                            if (user.getId().trim().equals(userText)) {
+                                userExists = true;
+                                if (user.getData().values().toString().trim().equals("["+passText+"]")) {
+                                    correctPass = true;
+                                    authenticateSpotify();
+                                }
+                            }
+                        }
+                    if (!userExists) {
+                        Toast.makeText(getApplicationContext(), "That username doesn't exist", Toast.LENGTH_SHORT).show();
                     }
-
+                    if (!correctPass) {
+                        Toast.makeText(getApplicationContext(), "Incorrect password", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         });
