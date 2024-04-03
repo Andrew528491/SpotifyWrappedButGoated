@@ -2,7 +2,6 @@ package com.example.spotifywrappedbutgoated.ui;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,12 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.spotifywrappedbutgoated.R;
 import com.example.spotifywrappedbutgoated.databinding.FragmentTopSongsBinding;
-import com.example.spotifywrappedbutgoated.databinding.FragmentWrappeduiBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class TopSongs extends Fragment {
     ListView listView;
 
     FragmentTopSongsBinding binding;
-    ArrayList<String> arrayList = new ArrayList<>();
+    ArrayList<SongData> songList = new ArrayList<SongData>();
 
     public static TopSongs newInstance() {
         return new TopSongs();
@@ -41,19 +38,17 @@ public class TopSongs extends Fragment {
         TopSongsViewModel tsVM = new ViewModelProvider(this).get(TopSongsViewModel.class);
         binding = FragmentTopSongsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        listView = binding.list2;
-        FloatingActionButton button = binding.floatingActionButton3;
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+        listView = binding.listOfSongs;
+
 
         for (int i = 0; i < 5; i++) {
-            arrayList.add("SONG NAME");
+            songList.add(new SongData("Ah", "Ah", "IDK", "IDK"));
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(binding.getRoot().getContext(), android.R.layout.simple_list_item_1, arrayList);
-        listView.setAdapter(adapter);
+        SongAdapter songAdapter = new SongAdapter(binding.getRoot().getContext(), android.R.layout.simple_list_item_1, songList);
+        listView.setAdapter(songAdapter);
+
+
+
         return inflater.inflate(R.layout.fragment_wrappedui, container, false);
     }
 
