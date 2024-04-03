@@ -47,10 +47,8 @@ public class SongService {
                             JSONObject object = jsonArray.getJSONObject(n);
                             String name = object.getString("name");
                             String id = object.getString("id");
-                            //object = object.optJSONObject("tracks");
-                            //assert object != null;
                             Song song = new Song(name, id);
-                            System.out.println(song);
+                            songs.add(song);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
