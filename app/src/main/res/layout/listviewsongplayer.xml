@@ -21,8 +21,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:layout_toRightOf="@id/songAlbumCover"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="20sp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/playButton"
