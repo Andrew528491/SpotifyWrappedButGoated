@@ -40,7 +40,6 @@ public class ArtistService {
         String endpoint = "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, endpoint, null, response -> {
-                    Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
                     for (int n = 0; n < Objects.requireNonNull(jsonArray).length(); n++) {
                         try {
@@ -48,7 +47,7 @@ public class ArtistService {
                             String name = object.getString("name");
                             String id = object.getString("id");
                             Artist artist = new Artist(name, id);
-                            System.out.println(artist);
+                            artists.add(artist);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

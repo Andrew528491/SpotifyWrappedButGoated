@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 
 public class WrappedActivity extends AppCompatActivity {
@@ -23,22 +25,22 @@ public class WrappedActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("SPOTIFY", 0);
         songService = new SongService(getApplicationContext());
-        getTracks();
         artistService = new ArtistService(getApplicationContext());
+        getTracks();
         getArtists();
-
-        System.out.println(topTracks);
     }
 
     private void getTracks() {
         songService.getTopTracks(() -> {
             topTracks = songService.getSongs();
+            System.out.println(topTracks);
         });
     }
 
     private void getArtists() {
         artistService.getTopArtists(() -> {
             topArtists = artistService.getArtists();
+            System.out.println(topArtists);
         });
     }
 }
