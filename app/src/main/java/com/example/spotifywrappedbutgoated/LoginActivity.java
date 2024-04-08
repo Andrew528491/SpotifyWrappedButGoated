@@ -46,8 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final String SCOPES = "user-top-read,user-read-recently-played";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText username, password;
+    EditText username;
+    EditText password;
     Button signupButton, loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,26 +69,29 @@ public class LoginActivity extends AppCompatActivity {
             String userText = username.getText().toString().trim();
             String passText = password.getText().toString().trim();
 
-//             Prepare the user information to be saved in Firestore
-            Map<String, String> newUser = new HashMap<>();
-            newUser.put("password", passText);
+            if (!userText.equals("") && !passText.equals("")) {
+                Map<String, String> newUser = new HashMap<>();
+                newUser.put("password", passText);
 
-            // Add a new document to the "users" collection
-            db.collection("users").document(userText)
-                    .set(newUser)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            authenticateSpotify(); // This can remain the same if you need to authenticate with Spotify upon signup
-                            Toast.makeText(getApplicationContext(), "Signup Successful", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Signup Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                // Add a new document to the "users" collection
+                db.collection("users").document(userText)
+                        .set(newUser)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                authenticateSpotify();
+                                Toast.makeText(getApplicationContext(), "Signup Successful", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Signup Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(getApplicationContext(), "Username and password must be filled out", Toast.LENGTH_SHORT).show();
+            }
         });
 
         loginButton.setOnClickListener(v -> {
@@ -105,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (user.getData().values().toString().trim().equals("["+passText+"]")) {
                                     correctPass = true;
                                     authenticateSpotify();
+                                    goToUpdateLogin();
                                 }
                             }
                         }
@@ -153,19 +159,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void performUserLogin(String username, String password, LoginCallback callback) {
-        // Implement your login logic here, this is just a placeholder
-        boolean loginSuccess = true; // Replace this with actual login success check
-
-        if (loginSuccess) {
-            // Login successful, call onSuccess
-            callback.onSuccess();
-        } else {
-            // Login failed, call onFailure
-            callback.onFailure();
-        }
-    }
-
     private void displayExceptionMessage(String title, String msg, Activity reportActivity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(reportActivity);
         builder.setTitle(title);
@@ -185,8 +178,14 @@ public class LoginActivity extends AppCompatActivity {
         return res.getString(res.getIdentifier(idName, "string", context.getPackageName()));
     }
 
-    interface LoginCallback {
-        void onSuccess();
-        void onFailure();
+    public void goToUpdateLogin() {
+        String userText = username.getText().toString().trim();
+        String passText = password.getText().toString().trim();
+
+        Intent intent = new Intent(LoginActivity.this, UpdateLogin.class);
+        intent.putExtra("username", userText);
+        intent.putExtra("password", passText);
+        startActivity(intent);
     }
+
 }
