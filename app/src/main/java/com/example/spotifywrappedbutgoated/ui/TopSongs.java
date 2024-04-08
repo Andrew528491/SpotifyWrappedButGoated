@@ -1,56 +1,58 @@
 package com.example.spotifywrappedbutgoated.ui;
 
-import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.spotifywrappedbutgoated.R;
-import com.example.spotifywrappedbutgoated.databinding.FragmentTopSongsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class TopSongs extends Fragment {
+import com.example.spotifywrappedbutgoated.R;
 
-    private TopSongsViewModel mViewModel;
+public class TopSongs extends AppCompatActivity {
     ListView listView;
-
-    FragmentTopSongsBinding binding;
+    FloatingActionButton clickRight;
+    FloatingActionButton clickLeft;
     ArrayList<SongData> songList = new ArrayList<SongData>();
 
-    public static TopSongs newInstance() {
-        return new TopSongs();
-    }
 
+    @SuppressLint("MissingInflatedId")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        TopSongsViewModel tsVM = new ViewModelProvider(this).get(TopSongsViewModel.class);
-        binding = FragmentTopSongsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        listView = binding.listOfSongs;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_top_songs);
+        listView = (ListView) findViewById(R.id.listOfSongs);
 
+        songList.add(new SongData("The Weeknd", "Prisoner", "@android:drawable/ic_media_play", "IDK"));
+        songList.add(new SongData("Lana Del Ray", "Ultraviolence", "@android:drawable/ic_media_play", "IDK"));
+        songList.add(new SongData("Dominic Fike", "Westcoast Collective", "@android:drawable/ic_media_play", "IDK"));
+        songList.add(new SongData("Ariana Grande", "We Can't Be Friends", "@android:drawable/ic_media_play", "IDK"));
+        songList.add(new SongData("Travis Scott", "Nightcrawler", "@android:drawable/ic_media_play", "IDK"));
 
-        for (int i = 0; i < 5; i++) {
-            songList.add(new SongData("Ah", "Ah", "IDK", "IDK"));
-        }
-        SongAdapter songAdapter = new SongAdapter(binding.getRoot().getContext(), android.R.layout.simple_list_item_1, songList);
+        SongAdapter songAdapter = new SongAdapter(this, android.R.layout.simple_list_item_1, songList);
         listView.setAdapter(songAdapter);
 
+        clickRight = (FloatingActionButton) findViewById(R.id.topSongsClickRight);
+        clickRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), wrappedui.class);
+                startActivity(myIntent);
+            }
+        });
+        clickLeft = (FloatingActionButton) findViewById(R.id.topSongsClickLeft);
+        clickLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), wrappedui.class);
+                startActivity(myIntent);
+            }
+        });
 
-
-        return inflater.inflate(R.layout.fragment_wrappedui, container, false);
     }
-
-
 }
