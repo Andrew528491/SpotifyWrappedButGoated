@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -22,33 +21,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SongService {
-    private ArrayList<Song> songs = new ArrayList<>();
+public class ArtistService {
+
+    private ArrayList<Artist> artists = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
 
-    public SongService(Context context) {
+    public ArtistService(Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
     }
 
-    public ArrayList<Song> getSongs() {
-        return songs;
+    public ArrayList<Artist> getArtists() {
+        return artists;
     }
 
-    public void getTopTracks(final VolleyCallBack callBack) {
-        String endpoint = "https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10";
+    public void getTopArtists(final VolleyCallBack callBack) {
+        String endpoint = "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, endpoint, null, response -> {
-                    Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
                     for (int n = 0; n < Objects.requireNonNull(jsonArray).length(); n++) {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);
                             String name = object.getString("name");
                             String id = object.getString("id");
-                            Song song = new Song(name, id);
-                            songs.add(song);
+                            Artist artist = new Artist(name, id);
+                            artists.add(artist);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

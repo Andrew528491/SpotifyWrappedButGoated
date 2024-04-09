@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.TopArtists" >
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="730dp"
+        android:translationX="0px"
+        android:translationY="0px"
+        app:srcCompat="@drawable/screenshot_2024_03_28_at_2_42_22pm" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Top Artists"
+        android:textColor="#F6F4F4"
+        android:textSize="20sp"
+        android:translationX="400px"
+        android:translationY="250px" />
+
+    <ListView
+        android:layout_width="250dp"
+        android:layout_height="500dp"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:translationX="200px"
+        android:translationY="350px" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/topArtistsClickRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:rotation="0"
+        android:src="@android:drawable/ic_media_play"
+        android:translationX="352dp"
+        android:translationY="380dp"
+        app:backgroundTint="#8D4E8CD5" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/topArtistsClickLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:rotation="180"
+        android:src="@android:drawable/ic_media_play"
+        android:translationX="0dp"
+        android:translationY="380dp"
+        app:backgroundTint="#8D4E8CD5" />
+</FrameLayout>

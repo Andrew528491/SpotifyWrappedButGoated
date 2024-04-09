@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences msharedPreferences;
     private RequestQueue queue;
+    private boolean flag;
 
     private static final String CLIENT_ID = "2ba604432e854103b6e06527656074cc";
     private static final String REDIRECT_URI = "com.spotifywrappedbutgoated://callback";

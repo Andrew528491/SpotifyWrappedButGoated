@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.TopSongs">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0D0E54"
+        android:src="@drawable/img" />
+
+    <ListView
+        android:id="@+id/listOfSongs"
+        android:layout_width="291dp"
+        android:layout_height="409dp"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent"
+        android:translationX="55dp"
+        android:translationY="200dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/topSongsClickRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:rotation="0"
+        android:src="@android:drawable/ic_media_play"
+        android:translationX="352dp"
+        android:translationY="380dp"
+        app:backgroundTint="#8D4E8CD5" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/topSongsClickLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:rotation="180"
+        android:src="@android:drawable/ic_media_play"
+        android:translationX="0dp"
+        android:translationY="380dp"
+        app:backgroundTint="#8D4E8CD5" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Top Songs"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:translationX="85dp"
+        android:translationY="150dp"
+        tools:text="Top Songs" />
+
+</FrameLayout>
