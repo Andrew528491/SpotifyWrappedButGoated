@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.spotifywrappedbutgoated.ui.ArtistData;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -23,21 +24,23 @@ import java.util.Objects;
 
 public class ArtistService {
 
-    private ArrayList<Artist> artists = new ArrayList<>();
+    private ArrayList<ArtistData> artists = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private RequestQueue queue;
+    String timeRange;
 
     public ArtistService(Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
         queue = Volley.newRequestQueue(context);
     }
 
-    public ArrayList<Artist> getArtists() {
+    public ArrayList<ArtistData> getArtists() {
         return artists;
     }
 
-    public void getTopArtists(final VolleyCallBack callBack) {
-        String endpoint = "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=10";
+    public void getTopArtists(final VolleyCallBack callBack, String timeSpan) {
+        timeRange = timeSpan;
+        String endpoint = "https://api.spotify.com/v1/me/top/artists?time_range="+timeRange+"&limit=5";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, endpoint, null, response -> {
                     JSONArray jsonArray = response.optJSONArray("items");
@@ -46,7 +49,9 @@ public class ArtistService {
                             JSONObject object = jsonArray.getJSONObject(n);
                             String name = object.getString("name");
                             String id = object.getString("id");
-                            Artist artist = new Artist(name, id);
+                            //String albumArt = object.getString("url");
+                            String albumArt = "test";
+                            ArtistData artist = new ArtistData(name, albumArt);
                             artists.add(artist);
                         } catch (JSONException e) {
                             e.printStackTrace();

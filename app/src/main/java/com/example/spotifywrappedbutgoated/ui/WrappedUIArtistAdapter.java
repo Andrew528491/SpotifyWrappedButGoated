@@ -11,19 +11,19 @@ import com.example.spotifywrappedbutgoated.R;
 
 import java.util.List;
 
-public class WrappedUIArtistAdapter extends ArrayAdapter<String> {
-    public WrappedUIArtistAdapter(Context context, int resource, List<String> artistList) {
+public class WrappedUIArtistAdapter extends ArrayAdapter<ArtistData> {
+    public WrappedUIArtistAdapter(Context context, int resource, List<ArtistData> artistList) {
         super(context, resource, artistList);
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String artist = getItem(position);
+        ArtistData artist = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.listviewwrappedartists, parent, false);
         }
 
         TextView artistName = (TextView) convertView.findViewById(R.id.songWrappedArtist);
-        String total = (position + 1) + "  " + artist;
+        String total = (position + 1) + "  " + artist.getArtist();
         artistName.setText(total);
 
         return convertView;
