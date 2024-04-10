@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.spotifywrappedbutgoated.ui.TopSongs;
+import com.example.spotifywrappedbutgoated.ui.WrappedFilter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
@@ -94,6 +96,8 @@ public class UpdateLogin extends AppCompatActivity {
             } else {
                 Toast.makeText(UpdateLogin.this, "Username and Password cannot be empty", Toast.LENGTH_SHORT).show();
             }
+            Intent myIntent = new Intent(getApplicationContext(), WrappedFilter.class);
+            startActivity(myIntent);
         });
     }
 
