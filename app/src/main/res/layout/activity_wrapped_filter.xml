@@ -5,67 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.WrappedFilter">
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="446dp"
-      android:layout_height="799dp"
-      app:srcCompat="@drawable/filterimg"
-      tools:layout_editor_absoluteX="-6dp"
-      tools:layout_editor_absoluteY="-34dp"
-      android:text="Four Weeks"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="446dp"
+        android:layout_height="799dp"
+        app:srcCompat="@drawable/filterimg"
+        tools:layout_editor_absoluteX="-6dp"
+        tools:layout_editor_absoluteY="-34dp"
+        android:text="Four Weeks"/>
 
-  <Button
-      android:id="@+id/fourWeeksSelect"
-      android:layout_width="317dp"
-      android:layout_height="99dp"
-      android:backgroundTint="#8A1ED760"
-      android:bottomLeftRadius="10dp"
-      android:bottomRightRadius="10dp"
-      android:text="Four Weeks"
-      android:translationX="50dp"
-      android:translationY="200dp"
-      tools:layout_editor_absoluteX="3dp"
-      tools:layout_editor_absoluteY="-5dp" />
+    <Button
+        android:id="@+id/fourWeeksSelect"
+        android:layout_width="317dp"
+        android:layout_height="99dp"
+        android:backgroundTint="#8A1ED760"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:text="Four Weeks"
+        android:translationX="50dp"
+        android:translationY="200dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="-5dp" />
 
-  <Button
-      android:id="@+id/allTimeSelect"
-      android:layout_width="317dp"
-      android:layout_height="99dp"
-      android:backgroundTint="#8A1ED760"
-      android:bottomLeftRadius="10dp"
-      android:bottomRightRadius="10dp"
-      android:text="All Time"
-      android:translationX="50dp"
-      android:translationY="430dp"
-      tools:layout_editor_absoluteX="3dp"
-      tools:layout_editor_absoluteY="2dp" />
+    <Button
+        android:id="@+id/allTimeSelect"
+        android:layout_width="317dp"
+        android:layout_height="99dp"
+        android:backgroundTint="#8A1ED760"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:text="All Time"
+        android:translationX="50dp"
+        android:translationY="430dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="2dp" />
 
-  <Button
-      android:id="@+id/sixMonthsSelect"
-      android:layout_width="317dp"
-      android:layout_height="99dp"
-      android:backgroundTint="#8A1ED760"
-      android:bottomLeftRadius="10dp"
-      android:bottomRightRadius="10dp"
-      android:text="Six Months"
-      android:translationX="50dp"
-      android:translationY="315dp"
-      tools:layout_editor_absoluteX="3dp"
-      tools:layout_editor_absoluteY="0dp" />
+    <Button
+        android:id="@+id/sixMonthsSelect"
+        android:layout_width="317dp"
+        android:layout_height="99dp"
+        android:backgroundTint="#8A1ED760"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:text="Six Months"
+        android:translationX="50dp"
+        android:translationY="315dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-  <TextView
-      android:id="@+id/textView4"
-      android:layout_width="229dp"
-      android:layout_height="35dp"
-      android:text="Wrapped Timespan"
-      android:textColor="#FFFFFF"
-      android:textSize="25sp"
-      android:textStyle="bold"
-      android:translationX="100dp"
-      android:translationY="150dp"
-      tools:layout_editor_absoluteX="2dp"
-      tools:layout_editor_absoluteY="0dp"
-      tools:text="Wrapped Timespan" />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="229dp"
+        android:layout_height="35dp"
+        android:text="Wrapped Timespan"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:translationX="100dp"
+        android:translationY="150dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="Wrapped Timespan" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

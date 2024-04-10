@@ -22,11 +22,11 @@ public class ArtistAdapter extends ArrayAdapter<ArtistData> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ArtistData artist = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listviewartistplayer, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listviewnewartists, parent, false);
         }
 //        ImageView artistPicture = (ImageView) convertView.findViewById(R.id.artistPicture);
 
-        TextView artistName = (TextView) convertView.findViewById(R.id.artistName);
+        TextView artistName = (TextView) convertView.findViewById(R.id.newArtistName);
         artistName.setText(artist.getArtist());
 
         return convertView;

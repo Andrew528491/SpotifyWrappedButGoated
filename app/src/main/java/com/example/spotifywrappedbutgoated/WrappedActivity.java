@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.Volley;
 //import com.example.spotifywrappedbutgoated.ui.TopSongs;
+import com.example.spotifywrappedbutgoated.ui.ArtistData;
+import com.example.spotifywrappedbutgoated.ui.SongData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -21,8 +23,8 @@ public class WrappedActivity extends AppCompatActivity {
 
     private SongService songService;
     private ArtistService artistService;
-    private ArrayList<Song> topTracks;
-    private ArrayList<Artist> topArtists;
+    private ArrayList<SongData> topTracks;
+    private ArrayList<ArtistData> topArtists;
 
 
 
@@ -44,13 +46,13 @@ public class WrappedActivity extends AppCompatActivity {
         songService.getTopTracks(() -> {
             topTracks = songService.getSongs();
             System.out.println(topTracks);
-        });
+        }, "short_term");
     }
 
     private void getArtists() {
         artistService.getTopArtists(() -> {
             topArtists = artistService.getArtists();
             System.out.println(topArtists);
-        });
+        }, "short_term");
     }
 }
