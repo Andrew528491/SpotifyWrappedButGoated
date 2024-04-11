@@ -16,7 +16,7 @@
     <ListView
         android:id="@+id/listOfSongs"
         android:layout_width="291dp"
-        android:layout_height="409dp"
+        android:layout_height="436dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:translationX="55dp"
@@ -53,7 +53,8 @@
         android:textSize="30sp"
         android:textStyle="bold"
         android:translationX="85dp"
-        android:translationY="150dp"
+        android:translationY="140dp"
         tools:text="Top Songs" />
+
 
 </FrameLayout>

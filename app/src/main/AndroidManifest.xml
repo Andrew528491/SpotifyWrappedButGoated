@@ -17,7 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpotifyWrappedButGoated"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.NewArtists"
+            android:exported="false" />
+        <activity
+            android:name=".ui.TopArtists"
+            android:exported="false" />
+        <activity
+            android:name=".ui.WrappedFilter"
+            android:exported="false" />
         <activity
             android:name=".ui.wrappedui"
             android:exported="false" />
@@ -27,25 +35,21 @@
         <activity
             android:name=".WrappedActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".UpdateLogin"
             android:exported="false" />
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
-
 
 </manifest>

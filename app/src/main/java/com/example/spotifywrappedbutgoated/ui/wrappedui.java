@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,15 @@ import android.widget.ListView;
 import android.app.AlertDialog;
 
 import com.example.spotifywrappedbutgoated.UpdateLogin;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+
+import com.example.spotifywrappedbutgoated.ArtistService;
+import com.example.spotifywrappedbutgoated.SongService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.OutputStream;
@@ -36,19 +46,22 @@ import com.example.spotifywrappedbutgoated.R;
 
 public class wrappedui extends AppCompatActivity {
 
+    Dialog myDialog;
     ListView songListview;
     ListView artistListview;
-    ArrayList<String> songList = new ArrayList<>();
-    ArrayList<String> artistList = new ArrayList<>();
+    ArrayList<SongData> songList = new ArrayList<>();
+    ArrayList<ArtistData> artistList = new ArrayList<>();
 
     FloatingActionButton clickRight;
     FloatingActionButton clickLeft;
-
+  
     private String userText;
     private String passText;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] permissionstorage = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    SongService songService;
+    ArtistService artistService;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +70,45 @@ public class wrappedui extends AppCompatActivity {
         Intent intent = getIntent();
         userText = intent.getStringExtra("username");
         passText = intent.getStringExtra("password");
+        myDialog = new Dialog(this);
+
+        songService = new SongService(getApplicationContext());
+        artistService = new ArtistService(getApplicationContext());
+        songService.getTopTracks(() -> {
+            Log.i("TEST", "test");
+            runOnUiThread(() -> {  // UI updates must happen on the main thread
+                songList = songService.getSongs();  // Retrieve updated song list
+                songListview = (ListView) findViewById(R.id.songWrappedList);
+                WrappedUISongAdapter songAdapter = new WrappedUISongAdapter(this, android.R.layout.simple_list_item_1, songList);
+                songListview.setAdapter(songAdapter);
+            });
+
+            Log.i("TEST", "test");
+            Log.i("TEST", songList.get(0).getSong());
+            Log.i("TEST", songList.get(1).getSong());
+
+            System.out.println(songList);
+        }, WrappedFilter.getTimespan());
+
+
+
+            artistService.getTopArtists(() -> {
+                Log.i("TEST", "test");
+                runOnUiThread(() -> {  // UI updates must happen on the main thread
+                    artistList = artistService.getArtists();
+                    artistListview = (ListView) findViewById(R.id.artistWrappedList);
+
+
+                    WrappedUIArtistAdapter artistAdapter = new WrappedUIArtistAdapter(this, android.R.layout.simple_list_item_1, artistList);
+                    artistListview.setAdapter(artistAdapter);
+                });
+
+                Log.i("TEST", "test");
+
+                System.out.println(artistList);
+            }, WrappedFilter.getTimespan());
         songListview = (ListView) findViewById(R.id.songWrappedList);
         artistListview = (ListView) findViewById(R.id.artistWrappedList);
-        songList.add("Prisoner");
-        songList.add("Ultraviolence");
-        songList.add("Westcoast Collective");
-        songList.add("We Can't Be Friends");
-        songList.add("Nightcrawler");
-        artistList.add("The Weeknd");
-        artistList.add("Lana Del Ray");
-        artistList.add("Dominic Fike");
-        artistList.add("Ariana Grande");
-        artistList.add("Travis Scott");
         WrappedUISongAdapter songAdapter = new WrappedUISongAdapter(this, android.R.layout.simple_list_item_1, songList);
         songListview.setAdapter(songAdapter);
         WrappedUIArtistAdapter artistAdapter = new WrappedUIArtistAdapter(this, android.R.layout.simple_list_item_1, artistList);
@@ -77,7 +117,7 @@ public class wrappedui extends AppCompatActivity {
         clickRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                Intent myIntent = new Intent(getApplicationContext(), wrappedui.class);
                 startActivity(myIntent);
             }
         });
@@ -85,7 +125,7 @@ public class wrappedui extends AppCompatActivity {
         clickLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                Intent myIntent = new Intent(getApplicationContext(), NewArtists.class);
                 startActivity(myIntent);
             }
         });
@@ -179,4 +219,22 @@ public class wrappedui extends AppCompatActivity {
     }
 
 
+}
+    public void ShowPopup(View v) {
+        TextView txtclose;
+        Button button2;
+        Button button3;
+        myDialog.setContentView(R.layout.share_pop_up);
+        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
+        txtclose.setText("X");
+        button2 = (Button) myDialog.findViewById(R.id.button2);
+        button3 = (Button) myDialog.findViewById(R.id.button3);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.show();
+    }
 }

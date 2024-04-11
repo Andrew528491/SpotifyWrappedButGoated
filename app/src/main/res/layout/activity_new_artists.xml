@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#102609"
-    tools:context=".ui.TopArtists">
+    tools:context=".ui.NewArtists">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/screenshot_2024_03_28_at_2_42_22pm" />
+        android:background="#901273"
+        app:srcCompat="@drawable/img_1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Top Artists"
+        android:text="New Artists"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         android:translationX="85dp"
         android:translationY="150dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="New Artists" />
 
     <ListView
-        android:id="@+id/listTopArtists"
-        android:layout_width="251dp"
+        android:id="@+id/listNewArtists"
+        android:layout_width="280dp"
         android:layout_height="397dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
-        android:translationX="75dp"
-        android:translationY="220dp"
+        android:translationX="70dp"
+        android:translationY="200dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/topArtistsClickRight"
+        android:id="@+id/newArtistsClickRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -49,7 +52,7 @@
         app:backgroundTint="#8D4E8CD5" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/topArtistsClickLeft"
+        android:id="@+id/newArtistsClickLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -58,6 +61,4 @@
         android:translationX="0dp"
         android:translationY="380dp"
         app:backgroundTint="#8D4E8CD5" />
-
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
