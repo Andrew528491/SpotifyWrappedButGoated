@@ -218,8 +218,6 @@ public class wrappedui extends AppCompatActivity {
         startActivity(editIntent);
     }
 
-
-}
     public void ShowPopup(View v) {
         TextView txtclose;
         Button button2;

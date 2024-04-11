@@ -73,7 +73,6 @@
         android:textStyle="bold"
         android:translationX="90dp"
         android:translationY="130dp"
-        android:translationY="110dp"
         tools:text="Top Songs" />
 
     <TextView
