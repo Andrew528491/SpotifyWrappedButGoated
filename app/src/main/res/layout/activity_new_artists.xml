@@ -31,12 +31,12 @@
 
     <ListView
         android:id="@+id/listNewArtists"
-        android:layout_width="251dp"
+        android:layout_width="280dp"
         android:layout_height="397dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
-        android:translationX="100dp"
-        android:translationY="220dp"
+        android:translationX="70dp"
+        android:translationY="200dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
