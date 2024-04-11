@@ -6,7 +6,6 @@ public class SongData {
     String albumCover;
     String songPlayer;
     public SongData(String songName, String albumCover, String songPlayer) {
-
         this.songName = songName;
         this.albumCover = albumCover;
         this.songPlayer = songPlayer;

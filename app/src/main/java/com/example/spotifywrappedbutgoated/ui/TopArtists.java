@@ -33,31 +33,15 @@ public class TopArtists extends AppCompatActivity {
 
         artistService = new ArtistService(getApplicationContext());
 
-
-        Log.i("TEST", "test");
-
-
-        Log.i("TEST", artistService.toString());
-        Log.i("TEST", getApplicationContext().toString());
-
         artistService.getTopArtists(() -> {
-            Log.i("TEST", "test");
             runOnUiThread(() -> {  // UI updates must happen on the main thread
                 artistList = artistService.getArtists();
                 listView = (ListView) findViewById(R.id.listTopArtists);
 
-
                 ArtistAdapter artistAdapter = new ArtistAdapter(this, android.R.layout.simple_list_item_1, artistList);
                 listView.setAdapter(artistAdapter);
             });
-
-            Log.i("TEST", "test");
-
-            System.out.println(artistList);
         }, WrappedFilter.getTimespan());
-
-
-
 
         clickRight = (FloatingActionButton) findViewById(R.id.topArtistsClickRight);
         clickRight.setOnClickListener(new View.OnClickListener() {

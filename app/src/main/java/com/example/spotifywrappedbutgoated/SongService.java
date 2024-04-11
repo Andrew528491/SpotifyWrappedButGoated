@@ -48,17 +48,14 @@ public class SongService {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, endpoint, null, response -> {
-                    Log.i("TEST", "inarray");
                     Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
-                    Log.i("TEST", jsonArray.toString());
                     for (int n = 0; n < Objects.requireNonNull(jsonArray).length(); n++) {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);
                             String name = object.getString("name");
                             String id = object.getString("id");
-                            //String albumArt = object.getString("url");
-                            String albumArt = "test";
+                            String albumArt = object.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url");
                             String player = object.getString("preview_url");
                             SongData song = new SongData(name, albumArt, player);
                             songs.add(song);

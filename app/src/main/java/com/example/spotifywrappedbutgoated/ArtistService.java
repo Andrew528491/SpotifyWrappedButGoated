@@ -48,10 +48,10 @@ public class ArtistService {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);
                             String name = object.getString("name");
-                            String id = object.getString("id");
-                            //String albumArt = object.getString("url");
-                            String albumArt = "test";
-                            ArtistData artist = new ArtistData(name, albumArt);
+                            String uri = object.getString("uri");
+                            //String artistPic = object.getJSONArray("images").getJSONObject(0).getString("url");
+                            String artistPic = "";
+                            ArtistData artist = new ArtistData(name, artistPic, uri);
                             artists.add(artist);
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -45,29 +45,14 @@ public class TopSongs extends AppCompatActivity {
 
 
 
-
-        Log.i("TEST", "test");
         songService = new SongService(getApplicationContext());
-        Log.i("TEST", songService.toString());
-        Log.i("TEST", getApplicationContext().toString());
-
-
-
-
-        Log.i("TEST", "test");
         songService.getTopTracks(() -> {
-            Log.i("TEST", "test");
             runOnUiThread(() -> {  // UI updates must happen on the main thread
                 songList = songService.getSongs();  // Retrieve updated song list
                 listView = (ListView) findViewById(R.id.listOfSongs);
                 SongAdapter songAdapter = new SongAdapter(this, android.R.layout.simple_list_item_1, songList);
                 listView.setAdapter(songAdapter);
             });
-
-            Log.i("TEST", songList.get(0).getSong());
-            Log.i("TEST", songList.get(1).getSong());
-
-            System.out.println(songList);
         }, WrappedFilter.getTimespan());
         listView = (ListView) findViewById(R.id.listOfSongs);
         SongAdapter songAdapter = new SongAdapter(this, android.R.layout.simple_list_item_1, songList);
