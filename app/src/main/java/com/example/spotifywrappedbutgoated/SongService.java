@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -47,8 +48,10 @@ public class SongService {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, endpoint, null, response -> {
+                    Log.i("TEST", "inarray");
                     Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
+                    Log.i("TEST", jsonArray.toString());
                     for (int n = 0; n < Objects.requireNonNull(jsonArray).length(); n++) {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);

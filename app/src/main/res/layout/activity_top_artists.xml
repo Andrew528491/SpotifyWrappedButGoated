@@ -32,7 +32,7 @@
         android:layout_height="397dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
-        android:translationX="100dp"
+        android:translationX="75dp"
         android:translationY="220dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
