@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.spotifywrappedbutgoated.ui.WrappedFilter;
 import com.example.spotifywrappedbutgoated.ui.wrappedui;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -179,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
         String userText = username.getText().toString().trim();
         String passText = password.getText().toString().trim();
 
-        Intent wrappedIntent = new Intent(LoginActivity.this, wrappedui.class);
+        Intent wrappedIntent = new Intent(LoginActivity.this, WrappedFilter.class);
         wrappedIntent.putExtra("username", userText);
         wrappedIntent.putExtra("password", passText);
         startActivity(wrappedIntent);
