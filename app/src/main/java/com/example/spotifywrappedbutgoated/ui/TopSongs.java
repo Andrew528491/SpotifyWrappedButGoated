@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import com.example.spotifywrappedbutgoated.R;
 
 public class TopSongs extends AppCompatActivity {
-    Dialog myDialog;
+
     ListView listView;
     FloatingActionButton clickRight;
     FloatingActionButton clickLeft;
@@ -42,7 +42,7 @@ public class TopSongs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_songs);
-        myDialog = new Dialog(this);
+
 
 
 
@@ -95,21 +95,4 @@ public class TopSongs extends AppCompatActivity {
 
     }
 
-    public void ShowPopup(View v) {
-        TextView txtclose;
-        Button button2;
-        Button button3;
-        myDialog.setContentView(R.layout.share_pop_up);
-        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
-        txtclose.setText("X");
-        button2 = (Button) myDialog.findViewById(R.id.button2);
-        button3 = (Button) myDialog.findViewById(R.id.button3);
-        txtclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-        myDialog.show();
-    }
 }

@@ -3,11 +3,14 @@ package com.example.spotifywrappedbutgoated.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.example.spotifywrappedbutgoated.ArtistService;
@@ -22,6 +25,7 @@ import com.example.spotifywrappedbutgoated.R;
 
 public class wrappedui extends AppCompatActivity {
 
+    Dialog myDialog;
     ListView songListview;
     ListView artistListview;
     ArrayList<SongData> songList = new ArrayList<>();
@@ -37,6 +41,7 @@ public class wrappedui extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wrappedui);
+        myDialog = new Dialog(this);
 
         songService = new SongService(getApplicationContext());
         artistService = new ArtistService(getApplicationContext());
@@ -98,5 +103,23 @@ public class wrappedui extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void ShowPopup(View v) {
+        TextView txtclose;
+        Button button2;
+        Button button3;
+        myDialog.setContentView(R.layout.share_pop_up);
+        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
+        txtclose.setText("X");
+        button2 = (Button) myDialog.findViewById(R.id.button2);
+        button3 = (Button) myDialog.findViewById(R.id.button3);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.show();
     }
 }
