@@ -70,8 +70,6 @@ public class wrappedui extends AppCompatActivity {
                 });
 
                 Log.i("TEST", "test");
-                Log.i("TEST", artistList.get(0).getArtist());
-                Log.i("TEST", artistList.get(1).getArtist());
 
                 System.out.println(artistList);
             }, WrappedFilter.getTimespan());

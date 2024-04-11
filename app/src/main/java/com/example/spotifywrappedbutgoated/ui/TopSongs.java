@@ -46,7 +46,7 @@ public class TopSongs extends AppCompatActivity {
 
 
 
-
+        Log.i("TEST", "test");
         songService = new SongService(getApplicationContext());
         Log.i("TEST", songService.toString());
         Log.i("TEST", getApplicationContext().toString());
@@ -54,7 +54,7 @@ public class TopSongs extends AppCompatActivity {
 
 
 
-
+        Log.i("TEST", "test");
         songService.getTopTracks(() -> {
             Log.i("TEST", "test");
             runOnUiThread(() -> {  // UI updates must happen on the main thread

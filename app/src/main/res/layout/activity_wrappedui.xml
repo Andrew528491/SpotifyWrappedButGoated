@@ -26,11 +26,11 @@
     <ListView
         android:id="@+id/songWrappedList"
         android:layout_width="245dp"
-        android:layout_height="239dp"
+        android:layout_height="268dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:translationX="90dp"
-        android:translationY="170dp" />
+        android:translationY="140dp" />
 
     <ListView
         android:id="@+id/artistWrappedList"
@@ -39,7 +39,7 @@
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:translationX="90dp"
-        android:translationY="450dp" />
+        android:translationY="440dp" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/wrappedClickRight"
         android:layout_width="wrap_content"
@@ -67,23 +67,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Top Songs"
-        android:translationX="90dp"
-        android:translationY="130dp"
-        tools:text="Top Songs"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:translationX="90dp"
+        android:translationY="110dp"
+        tools:text="Top Songs" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Top Artists"
-        android:translationX="90dp"
-        android:translationY="410dp"
-        tools:text="Top Artists"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:translationX="90dp"
+        android:translationY="400dp"
+        tools:text="Top Artists" />
 
 
 </FrameLayout>
