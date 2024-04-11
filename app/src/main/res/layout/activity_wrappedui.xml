@@ -67,12 +67,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Top Songs"
-        android:translationX="90dp"
-        android:translationY="130dp"
-        tools:text="Top Songs"
+        android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:translationX="90dp"
+        android:translationY="130dp"
+        tools:text="Top Songs" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -85,5 +86,29 @@
         android:textStyle="bold"
         android:textColor="@color/white"/>
 
+    <Button
+        android:id="@+id/screenshotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="center_horizontal"
+        android:translationY="650dp" />
 
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_gravity="center_horizontal"
+        android:translationX="100dp"
+        android:translationY="650dp" />
+
+    <Button
+        android:id="@+id/shareScreenshotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:layout_gravity="center_horizontal"
+        android:translationX="-100dp"
+        android:translationY="650dp" />
 </FrameLayout>

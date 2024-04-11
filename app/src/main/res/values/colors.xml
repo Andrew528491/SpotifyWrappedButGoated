@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="SpotifyGreen">#1ED760</color>
+    <color name="SpotifyPink">#D014C2</color>
 </resources>
