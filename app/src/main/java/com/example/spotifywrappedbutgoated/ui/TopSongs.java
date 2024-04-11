@@ -1,6 +1,8 @@
 package com.example.spotifywrappedbutgoated.ui;
 
 import androidx.annotation.NonNull;
+import android.app.Dialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -10,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.spotifywrappedbutgoated.SongService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import com.example.spotifywrappedbutgoated.R;
 
 public class TopSongs extends AppCompatActivity {
+    Dialog myDialog;
     ListView listView;
     FloatingActionButton clickRight;
     FloatingActionButton clickLeft;
@@ -30,11 +35,14 @@ public class TopSongs extends AppCompatActivity {
 
 
 
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_songs);
+        myDialog = new Dialog(this);
 
 
 
@@ -85,5 +93,23 @@ public class TopSongs extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void ShowPopup(View v) {
+        TextView txtclose;
+        Button button2;
+        Button button3;
+        myDialog.setContentView(R.layout.share_pop_up);
+        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
+        txtclose.setText("X");
+        button2 = (Button) myDialog.findViewById(R.id.button2);
+        button3 = (Button) myDialog.findViewById(R.id.button3);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.show();
     }
 }
