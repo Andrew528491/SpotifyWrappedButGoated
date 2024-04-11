@@ -72,6 +72,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:translationX="90dp"
+        android:translationY="130dp"
         android:translationY="110dp"
         tools:text="Top Songs" />
 
@@ -87,5 +88,29 @@
         android:translationY="400dp"
         tools:text="Top Artists" />
 
+    <Button
+        android:id="@+id/screenshotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="center_horizontal"
+        android:translationY="650dp" />
 
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_gravity="center_horizontal"
+        android:translationX="100dp"
+        android:translationY="650dp" />
+
+    <Button
+        android:id="@+id/shareScreenshotButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:layout_gravity="center_horizontal"
+        android:translationX="-100dp"
+        android:translationY="650dp" />
 </FrameLayout>

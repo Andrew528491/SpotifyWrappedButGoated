@@ -12,12 +12,12 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.spotifywrappedbutgoated.ui.wrappedui;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences msharedPreferences;
     private RequestQueue queue;
+    private ArrayList<Song> topTracks;
     private boolean flag;
 
     private static final String CLIENT_ID = "2ba604432e854103b6e06527656074cc";
@@ -109,8 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                 userExists = true;
                                 if (user.getData().values().toString().trim().equals("["+passText+"]")) {
                                     correctPass = true;
-                                    authenticateSpotify();
-                                    goToUpdateLogin();
+                                    goToWrappedUI();
                                 }
                             }
                         }
@@ -145,14 +145,11 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("token", response.getAccessToken());
                     editor.apply();
                     Log.d("STARTING", "GOT AUTH TOKEN");
-                    // Handle successful Spotify authentication, such as navigating to another activity
                     break;
                 case ERROR:
-                    // Handle Spotify authentication error
                     displayExceptionMessage(getStringByIdName(this, "authorization_error"), getStringByIdName(this, "authorization_error_description_spotify"), this);
                     break;
                 default:
-                    // Handle other cases, such as user cancellation
                     displayExceptionMessage(getStringByIdName(this, "authorization_error"), getStringByIdName(this, "authorization_error_description_appbackend"), this);
                     break;
             }
@@ -178,14 +175,13 @@ public class LoginActivity extends AppCompatActivity {
         return res.getString(res.getIdentifier(idName, "string", context.getPackageName()));
     }
 
-    public void goToUpdateLogin() {
+    public void goToWrappedUI() {
         String userText = username.getText().toString().trim();
         String passText = password.getText().toString().trim();
 
-        Intent intent = new Intent(LoginActivity.this, UpdateLogin.class);
-        intent.putExtra("username", userText);
-        intent.putExtra("password", passText);
-        startActivity(intent);
+        Intent wrappedIntent = new Intent(LoginActivity.this, wrappedui.class);
+        wrappedIntent.putExtra("username", userText);
+        wrappedIntent.putExtra("password", passText);
+        startActivity(wrappedIntent);
     }
-
 }

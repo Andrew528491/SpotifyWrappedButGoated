@@ -4,23 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="#1A0C38">
 
     <EditText
         android:id="@+id/username"
         android:layout_width="259dp"
         android:layout_height="71dp"
-        android:layout_marginStart="76dp"
         android:layout_marginTop="268dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="68dp"
         android:layout_marginBottom="54dp"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -33,6 +34,9 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="text"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/signupButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +67,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
+        app:layout_constraintTop_toBottomOf="@+id/signupButton"
+        android:backgroundTint="@color/SpotifyPink"/>
+
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="225dp"
+        android:layout_height="207dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/spotify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="304dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="14dp"
+        android:fontFamily="@font/alfa_slab_one"
+        android:text="Wrapped But Goated"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

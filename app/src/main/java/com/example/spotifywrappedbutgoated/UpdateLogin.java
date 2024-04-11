@@ -1,28 +1,17 @@
 package com.example.spotifywrappedbutgoated;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.spotifywrappedbutgoated.ui.wrappedui;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.spotifywrappedbutgoated.ui.TopSongs;
@@ -31,18 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.spotify.sdk.android.auth.AuthorizationClient;
-import com.spotify.sdk.android.auth.AuthorizationRequest;
-import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import android.widget.ImageButton;
 
 public class UpdateLogin extends AppCompatActivity {
 
@@ -99,6 +82,26 @@ public class UpdateLogin extends AppCompatActivity {
             Intent myIntent = new Intent(getApplicationContext(), WrappedFilter.class);
             startActivity(myIntent);
         });
+
+        Button backToWrappedUIButton = findViewById(R.id.backToWrappedUIButton);
+        backToWrappedUIButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String updatedUsername = updateUsername.getText().toString().trim();
+                String updatedPassword = updatePassword.getText().toString().trim();
+
+                Intent intent = new Intent(UpdateLogin.this, wrappedui.class);
+
+                intent.putExtra("username", updatedUsername);
+                intent.putExtra("password", updatedPassword);
+
+                startActivity(intent);
+
+                finish();
+            }
+        });
+
     }
+
 
 }
