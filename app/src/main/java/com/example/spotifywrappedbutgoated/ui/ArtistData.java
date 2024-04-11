@@ -3,9 +3,11 @@ package com.example.spotifywrappedbutgoated.ui;
 public class ArtistData {
     String artistName;
     String artistPicture;
-    public ArtistData(String artistName, String artistPicture) {
+    String artistURI;
+    public ArtistData(String artistName, String artistPicture, String artistURI) {
         this.artistName = artistName;
         this.artistPicture = artistPicture;
+        this.artistURI = artistURI;
     }
     public String getArtist() {
         return artistName;
@@ -18,6 +20,9 @@ public class ArtistData {
     }
     public void setArtistPicture(String artistPicture) {
         this.artistPicture = artistPicture;
+    }
+    public String getArtistURI() {
+        return artistURI;
     }
 
 }

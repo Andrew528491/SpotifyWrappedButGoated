@@ -5,33 +5,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
+import com.example.spotifywrappedbutgoated.NewArtistService;
 import com.example.spotifywrappedbutgoated.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class NewArtists extends AppCompatActivity {
-    ListView listview;
+    ListView listView;
     FloatingActionButton clickRight;
     FloatingActionButton clickLeft;
     ArrayList<ArtistData> newArtistList = new ArrayList<ArtistData>();
+    private NewArtistService newArtistService;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_artists);
-        listview = (ListView) findViewById(R.id.listNewArtists);
-        newArtistList.add(new ArtistData("The Weeknd", "IDK"));
-        newArtistList.add(new ArtistData("Lana Del Ray", "IDK"));
-        newArtistList.add(new ArtistData("Dominic Fike", "IDK"));
-        newArtistList.add(new ArtistData("Ariana Grande", "IDK"));
-        newArtistList.add(new ArtistData("Travis Scott", "IDK"));
+        newArtistService = new NewArtistService(getApplicationContext());
+        System.out.println("TEST");
+        newArtistService.getNewArtists(() -> {
+            Log.i("TEST", "test");
+            runOnUiThread(() -> {  // UI updates must happen on the main thread
+                newArtistList = newArtistService.getArtists();
+                listView = (ListView) findViewById(R.id.listNewArtists);
 
-        ArtistAdapter newArtistsAdapter = new ArtistAdapter(this, android.R.layout.simple_list_item_1, newArtistList);
-        listview.setAdapter(newArtistsAdapter);
+
+                ArtistAdapter artistAdapter = new ArtistAdapter(this, android.R.layout.simple_list_item_1, newArtistList);
+                listView.setAdapter(artistAdapter);
+            });
+
+            Log.i("TEST", "test");
+
+            System.out.println(newArtistList);
+        });
 
         clickRight = (FloatingActionButton) findViewById(R.id.newArtistsClickRight);
         clickRight.setOnClickListener(new View.OnClickListener() {
