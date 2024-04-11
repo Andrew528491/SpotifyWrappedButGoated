@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spotifywrappedbutgoated.ArtistService;
 import com.example.spotifywrappedbutgoated.R;
+import com.example.spotifywrappedbutgoated.SongService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -32,19 +33,33 @@ public class TopArtists extends AppCompatActivity {
 
         artistService = new ArtistService(getApplicationContext());
 
+
+        Log.i("TEST", "test");
+
+
+        Log.i("TEST", artistService.toString());
+        Log.i("TEST", getApplicationContext().toString());
+
         artistService.getTopArtists(() -> {
-            artistList = artistService.getArtists();
+            Log.i("TEST", "test");
+            runOnUiThread(() -> {  // UI updates must happen on the main thread
+                artistList = artistService.getArtists();
+                listView = (ListView) findViewById(R.id.listTopArtists);
+
+
+                ArtistAdapter artistAdapter = new ArtistAdapter(this, android.R.layout.simple_list_item_1, artistList);
+                listView.setAdapter(artistAdapter);
+            });
+
+            Log.i("TEST", "test");
             Log.i("TEST", artistList.get(0).getArtist());
             Log.i("TEST", artistList.get(1).getArtist());
+
             System.out.println(artistList);
         }, WrappedFilter.getTimespan());
 
 
-        listView = (ListView) findViewById(R.id.listTopArtists);
 
-
-        ArtistAdapter artistAdapter = new ArtistAdapter(this, android.R.layout.simple_list_item_1, artistList);
-        listView.setAdapter(artistAdapter);
 
         clickRight = (FloatingActionButton) findViewById(R.id.topArtistsClickRight);
         clickRight.setOnClickListener(new View.OnClickListener() {

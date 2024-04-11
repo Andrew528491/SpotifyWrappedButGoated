@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +31,7 @@ public class SongService {
     String timeRange;
     private RequestQueue queue;
 
-    public SongService(Context context) {
+    public SongService(@NonNull Context context) {
         sharedPreferences = context.getSharedPreferences("SPOTIFY", 0);
 
         queue = Volley.newRequestQueue(context);
