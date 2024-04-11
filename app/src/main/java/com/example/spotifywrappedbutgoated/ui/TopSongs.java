@@ -48,7 +48,8 @@ public class TopSongs extends AppCompatActivity {
 
 
         songService = new SongService(getApplicationContext());
-
+        Log.i("TEST", songService.toString());
+        Log.i("TEST", getApplicationContext().toString());
 
 
 
@@ -63,7 +64,6 @@ public class TopSongs extends AppCompatActivity {
                 listView.setAdapter(songAdapter);
             });
 
-            Log.i("TEST", "test");
             Log.i("TEST", songList.get(0).getSong());
             Log.i("TEST", songList.get(1).getSong());
 
