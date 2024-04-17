@@ -8,10 +8,6 @@ android {
     namespace = "com.example.spotifywrappedbutgoated"
     compileSdk = 34
 
-    lintOptions {
-        abortOnError false
-    }
-
     defaultConfig {
         applicationId = "com.example.spotifywrappedbutgoated"
         minSdk = 24
