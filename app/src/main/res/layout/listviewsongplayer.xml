@@ -26,16 +26,4 @@
         android:textColor="@color/white"/>
 
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-
-        android:background="#00FFFFFF"
-        android:clickable="true"
-        android:translationX="230dp"
-        app:srcCompat="@android:drawable/ic_media_play"
-        app:tint="#F7F8FB" />
-
 </RelativeLayout>
