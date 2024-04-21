@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0F0B39"
     tools:context=".ui.WrappedFilter">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="446dp"
         android:layout_height="799dp"
+        android:text="Four Weeks"
         app:srcCompat="@drawable/filterimg"
-        tools:layout_editor_absoluteX="-6dp"
-        tools:layout_editor_absoluteY="-34dp"
-        android:text="Four Weeks"/>
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="-44dp" />
 
     <Button
         android:id="@+id/fourWeeksSelect"
