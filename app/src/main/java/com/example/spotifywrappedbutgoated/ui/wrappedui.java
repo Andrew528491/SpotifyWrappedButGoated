@@ -130,6 +130,16 @@ public class wrappedui extends AppCompatActivity {
             }
         });
 
+        Button backtofilter = findViewById(R.id.backToFilterButton);
+
+        backtofilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), WrappedFilter.class);
+                startActivity(myIntent);
+            }
+        });
+
         Button screenshotButton = findViewById(R.id.screenshotButton);
         screenshotButton.setOnClickListener(new View.OnClickListener() {
             @Override

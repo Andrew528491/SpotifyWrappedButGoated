@@ -114,4 +114,12 @@
         android:layout_gravity="center_horizontal"
         android:translationX="-100dp"
         android:translationY="650dp" />
+
+    <Button
+        android:id="@+id/backToFilterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Filter"
+        android:translationX="10dp"
+        android:translationY="10dp" />
 </FrameLayout>
