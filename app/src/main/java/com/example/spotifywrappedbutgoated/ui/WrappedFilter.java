@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.spotifywrappedbutgoated.LoginActivity;
 import com.example.spotifywrappedbutgoated.R;
 
 public class WrappedFilter extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class WrappedFilter extends AppCompatActivity {
     public static String getTimespan() {
         return timespan;
     }
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,18 @@ public class WrappedFilter extends AppCompatActivity {
         fourWeeks = (Button) findViewById(R.id.fourWeeksSelect);
         sixMonths = (Button) findViewById(R.id.sixMonthsSelect);
         allTime = (Button) findViewById(R.id.allTimeSelect);
+        Intent intent = getIntent();
+        String userText = intent.getStringExtra("username");
+        String passText = intent.getStringExtra("password");
+        Log.d("WrappedFilter", "Username received: " + userText);
         fourWeeks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timespan = "short_term";
 
                 Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
@@ -45,6 +53,8 @@ public class WrappedFilter extends AppCompatActivity {
                 timespan = "medium_term";
                 Log.i("TEST", timespan);
                 Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
@@ -53,6 +63,8 @@ public class WrappedFilter extends AppCompatActivity {
             public void onClick(View v) {
                 timespan = "long_term";
                 Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });

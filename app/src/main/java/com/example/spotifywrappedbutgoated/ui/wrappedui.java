@@ -1,6 +1,8 @@
 package com.example.spotifywrappedbutgoated.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -8,6 +10,8 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,12 +20,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.app.AlertDialog;
 
-import com.example.spotifywrappedbutgoated.UpdateLogin;
+import com.example.spotifywrappedbutgoated.ImageGalleryActivity;
+
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 
 import com.example.spotifywrappedbutgoated.ArtistService;
@@ -67,9 +68,11 @@ public class wrappedui extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wrappedui);
+        checkAndRequestPermissions();
         Intent intent = getIntent();
         userText = intent.getStringExtra("username");
         passText = intent.getStringExtra("password");
+        Log.d("wrappedui", "Username received: " + userText);
         myDialog = new Dialog(this);
 
         songService = new SongService(getApplicationContext());
@@ -118,6 +121,8 @@ public class wrappedui extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), wrappedui.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
@@ -126,8 +131,20 @@ public class wrappedui extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), NewArtists.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
+        });
+        Button changeTimeframeButton = findViewById(R.id.changeTimeframeButton);
+        changeTimeframeButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent myIntent = new Intent(getApplicationContext(), WrappedFilter.class);
+              myIntent.putExtra("username", userText);
+              myIntent.putExtra("password", passText);
+              startActivity(myIntent);
+          }
         });
 
         Button backtofilter = findViewById(R.id.backToFilterButton);
@@ -145,15 +162,6 @@ public class wrappedui extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takeScreenshot();
-            }
-        });
-
-        Button settingsButton = findViewById(R.id.settingsButton);
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUpdateLogin();
             }
         });
 
@@ -185,30 +193,45 @@ public class wrappedui extends AppCompatActivity {
                         .show();
             }
         });
-        }
+
+        Button clickGallery = findViewById(R.id.wrappedClickGallery);
+        clickGallery.setOnClickListener(v -> {
+            Intent galleryIntent = new Intent(getApplicationContext(), ImageGalleryActivity.class);
+            String userFolder = userText + "'s Past Wraps"; // This is your folder name used in takeScreenshot()
+            String relativeLocation = Environment.DIRECTORY_PICTURES + File.separator + userFolder;
+            galleryIntent.putExtra("image_directory", relativeLocation);
+            galleryIntent.putExtra("username", userText);
+            galleryIntent.putExtra("username", userText);
+            galleryIntent.putExtra("password", passText);
+            startActivity(galleryIntent);
+        });
+
+
+    }
 
     public Uri takeScreenshot() {
         Date now = new Date();
-        final String relativeLocation = Environment.DIRECTORY_PICTURES + File.separator + "Screenshots";
+        String userFolder = userText + "'s Past Wraps";
+        String relativeLocation = Environment.DIRECTORY_PICTURES + File.separator + userFolder;
 
-        final ContentValues contentValues = new ContentValues();
+        ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now).toString() + ".jpg");
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
         contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
 
-        final ContentResolver resolver = getContentResolver();
+        ContentResolver resolver = getContentResolver();
         Uri uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
         try {
-            View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-            rootView.setDrawingCacheEnabled(true);
-            Bitmap bitmap = Bitmap.createBitmap(rootView.getDrawingCache());
-            rootView.setDrawingCacheEnabled(false);
+            View rootView = getWindow().getDecorView().getRootView();
+            Bitmap bitmap = Bitmap.createBitmap(rootView.getWidth(), rootView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            rootView.draw(canvas);
 
             if (uri != null) {
                 try (OutputStream stream = resolver.openOutputStream(uri)) {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-                    Toast.makeText(getApplicationContext(), "Screenshot saved to Photos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Screenshot saved to " + userFolder, Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     resolver.delete(uri, null, null);
                     Toast.makeText(getApplicationContext(), "Failed to save screenshot", Toast.LENGTH_SHORT).show();
@@ -221,28 +244,16 @@ public class wrappedui extends AppCompatActivity {
         return uri;
     }
 
-    public void goToUpdateLogin() {
-        Intent editIntent = new Intent(wrappedui.this, UpdateLogin.class);
-        editIntent.putExtra("username", userText);
-        editIntent.putExtra("password", passText);
-        startActivity(editIntent);
+
+
+    private void checkAndRequestPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_EXTERNAL_STORAGE);
+        }
     }
 
-    public void ShowPopup(View v) {
-        TextView txtclose;
-        Button button2;
-        Button button3;
-        myDialog.setContentView(R.layout.share_pop_up);
-        txtclose = (TextView) myDialog.findViewById(R.id.txtclose);
-        txtclose.setText("X");
-        button2 = (Button) myDialog.findViewById(R.id.button2);
-        button3 = (Button) myDialog.findViewById(R.id.button3);
-        txtclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-        myDialog.show();
-    }
 }

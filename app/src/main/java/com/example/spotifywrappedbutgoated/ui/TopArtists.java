@@ -30,7 +30,10 @@ public class TopArtists extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_artists);
-
+        Intent intent = getIntent();
+        String userText = intent.getStringExtra("username");
+        String passText = intent.getStringExtra("password");
+        Log.d("TopArtists", "Username received: " + userText);
         artistService = new ArtistService(getApplicationContext());
 
         artistService.getTopArtists(() -> {
@@ -48,6 +51,8 @@ public class TopArtists extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), NewArtists.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
@@ -56,6 +61,8 @@ public class TopArtists extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });

@@ -5,24 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1A0C38"
-    tools:context=".ui.wrappedui" >
+    tools:context=".ui.wrappedui">
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/mainwrappedbg" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:onClick="ShowPopup"
-        android:layout_width="73dp"
-        android:layout_height="54dp"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/app_name"
-        android:src="@android:drawable/ic_menu_send"
-        android:translationX="175dp"
-        android:translationY="650dp" />
 
     <ListView
         android:id="@+id/songWrappedList"
@@ -93,17 +82,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:translationY="650dp"
+        android:translationX="100dp"
+        android:backgroundTint="@color/SpotifyPink"/>
         android:text="Save"
         android:translationX="-5dp"
-        android:translationY="650dp" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:layout_gravity="center_horizontal"
-        android:translationX="100dp"
         android:translationY="650dp" />
 
     <Button
@@ -113,13 +96,27 @@
         android:text="Share"
         android:layout_gravity="center_horizontal"
         android:translationX="-100dp"
-        android:translationY="650dp" />
+        android:translationY="650dp"
+        android:backgroundTint="@color/SpotifyPink"/>
 
     <Button
-        android:id="@+id/backToFilterButton"
+        android:id="@+id/wrappedClickGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Filter"
-        android:translationX="10dp"
-        android:translationY="10dp" />
+        android:text="Gallery"
+        android:layout_gravity="center_horizontal"
+        android:translationX="0dp"
+        android:translationY="650dp"
+        android:backgroundTint="@color/SpotifyGreen"/>
+
+    <Button
+        android:id="@+id/changeTimeframeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Timeframe"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/SpotifyGreen"/>
+        android:translationX="-100dp"
+        android:translationY="650dp" />
 </FrameLayout>
