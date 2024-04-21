@@ -2,6 +2,7 @@ package com.example.spotifywrappedbutgoated;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import android.widget.ImageButton;
@@ -30,7 +32,7 @@ import android.widget.ImageButton;
 public class UpdateLogin extends AppCompatActivity {
 
     EditText updateUsername, updatePassword;
-    Button updateButton;
+    Button updateButton, deleteAccountButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,9 +42,10 @@ public class UpdateLogin extends AppCompatActivity {
         updateButton = findViewById(R.id.updateLogin);
         updateUsername = findViewById(R.id.updateUsername);
         updatePassword = findViewById(R.id.updatePassword);
+        deleteAccountButton = findViewById(R.id.deleteAccountButton);
 
         Bundle extras = getIntent().getExtras();
-        String oldUsername = "";
+        String oldUsername;
 
         if (extras != null) {
             oldUsername = extras.getString("username");
@@ -50,6 +53,8 @@ public class UpdateLogin extends AppCompatActivity {
 
             updateUsername.setText(oldUsername);
             updatePassword.setText(password);
+        } else {
+            oldUsername = "";
         }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -79,7 +84,7 @@ public class UpdateLogin extends AppCompatActivity {
             } else {
                 Toast.makeText(UpdateLogin.this, "Username and Password cannot be empty", Toast.LENGTH_SHORT).show();
             }
-            Intent myIntent = new Intent(getApplicationContext(), WrappedFilter.class);
+            Intent myIntent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(myIntent);
         });
 
@@ -90,7 +95,7 @@ public class UpdateLogin extends AppCompatActivity {
                 String updatedUsername = updateUsername.getText().toString().trim();
                 String updatedPassword = updatePassword.getText().toString().trim();
 
-                Intent intent = new Intent(UpdateLogin.this, WrappedFilter.class);
+                Intent intent = new Intent(UpdateLogin.this, LoginActivity.class);
 
                 intent.putExtra("username", updatedUsername);
                 intent.putExtra("password", updatedPassword);
@@ -101,6 +106,32 @@ public class UpdateLogin extends AppCompatActivity {
             }
         });
 
+        deleteAccountButton.setOnClickListener(v -> {
+            // Delete the user images from storage
+            deleteUserImages(oldUsername);
+
+            // Delete the user data from Firestore
+            db.collection("users").document(oldUsername).delete()
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(UpdateLogin.this, "Account and images deleted successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(UpdateLogin.this, LoginActivity.class));
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(UpdateLogin.this, "Failed to delete account", Toast.LENGTH_SHORT).show());
+        });
+    }
+
+    private void deleteUserImages(String username) {
+        String userFolder = username + "'s Past Wraps";
+        String directoryPath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_PICTURES + File.separator + userFolder;
+        File directory = new File(directoryPath);
+        if (directory.exists()) {
+            String[] children = directory.list();
+            for (String child : children) {
+                new File(directory, child).delete();
+            }
+            directory.delete();
+        }
     }
 
 

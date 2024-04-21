@@ -43,8 +43,10 @@ public class TopSongs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_songs);
 
-
-
+        Intent intent = getIntent();
+        String userText = intent.getStringExtra("username");
+        String passText = intent.getStringExtra("password");
+        Log.d("TopSongs", "Username received: " + userText);
         songService = new SongService(getApplicationContext());
         songService.getTopTracks(() -> {
             runOnUiThread(() -> {  // UI updates must happen on the main thread
@@ -66,6 +68,8 @@ public class TopSongs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), TopArtists.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
@@ -74,6 +78,8 @@ public class TopSongs extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), TopSongs.class);
+                myIntent.putExtra("username", userText);
+                myIntent.putExtra("password", passText);
                 startActivity(myIntent);
             }
         });
