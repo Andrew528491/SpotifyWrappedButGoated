@@ -5,13 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1A0C38"
-    tools:context=".ui.wrappedui">
+    tools:context=".ui.wrappedui" >
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/mainwrappedbg" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:onClick="ShowPopup"
+        android:layout_width="73dp"
+        android:layout_height="54dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="@string/app_name"
+        android:src="@android:drawable/ic_menu_send"
+        android:translationX="175dp"
+        android:translationY="650dp" />
 
     <ListView
         android:id="@+id/songWrappedList"
@@ -20,7 +31,7 @@
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:translationX="90dp"
-        android:translationY="120dp" />
+        android:translationY="130dp" />
 
     <ListView
         android:id="@+id/artistWrappedList"
@@ -29,7 +40,7 @@
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:translationX="90dp"
-        android:translationY="390dp" />
+        android:translationY="430dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/wrappedClickRight"
@@ -40,7 +51,7 @@
         android:src="@android:drawable/ic_media_play"
         android:translationX="352dp"
         android:translationY="380dp"
-        app:backgroundTint="#8D4E8CD5" />
+        app:backgroundTint="#8D905BE6" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/wrappedClickLeft"
@@ -51,7 +62,7 @@
         android:src="@android:drawable/ic_media_play"
         android:translationX="0dp"
         android:translationY="380dp"
-        app:backgroundTint="#8D4E8CD5" />
+        app:backgroundTint="#8D905BE6" />
 
     <TextView
         android:id="@+id/textView"
@@ -62,7 +73,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:translationX="90dp"
-        android:translationY="80dp"
+        android:translationY="90dp"
         tools:text="Top Songs" />
 
     <TextView
@@ -74,18 +85,26 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:translationX="90dp"
-        android:translationY="350dp"
+        android:translationY="390dp"
         tools:text="Top Artists" />
 
     <Button
         android:id="@+id/screenshotButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
         android:layout_gravity="center_horizontal"
-        android:translationY="650dp"
+        android:text="Save"
+        android:translationX="-5dp"
+        android:translationY="650dp" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_gravity="center_horizontal"
         android:translationX="100dp"
-        android:backgroundTint="@color/SpotifyPink"/>
+        android:translationY="650dp" />
 
     <Button
         android:id="@+id/shareScreenshotButton"

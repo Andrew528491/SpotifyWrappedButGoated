@@ -78,4 +78,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="@color/Red"/>
 
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textColor="#FFFFFF"
+        android:translationX="80dp"
+        android:translationY="200dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="-3dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="#FFFFFF"
+        android:translationX="80dp"
+        android:translationY="290dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
