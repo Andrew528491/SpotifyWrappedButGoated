@@ -90,7 +90,7 @@ public class UpdateLogin extends AppCompatActivity {
                 String updatedUsername = updateUsername.getText().toString().trim();
                 String updatedPassword = updatePassword.getText().toString().trim();
 
-                Intent intent = new Intent(UpdateLogin.this, WrappedFilter.class);
+                Intent intent = new Intent(UpdateLogin.this, wrappedui.class);
 
                 intent.putExtra("username", updatedUsername);
                 intent.putExtra("password", updatedPassword);
