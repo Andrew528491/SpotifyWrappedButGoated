@@ -7,97 +7,93 @@
     tools:context=".LoginActivity"
     android:background="#1A0C38">
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="259dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="268dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="54dp"
-        android:backgroundTint="@color/white"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="text"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="259dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="35dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="text"
-        android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/signupButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
-
-        <Button
-        android:id="@+id/signupButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="154dp"
-        android:layout_marginEnd="170dp"
-        android:layout_marginBottom="184dp"
-        android:backgroundTint="@color/SpotifyGreen"
-        android:text="Sign Up"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="167dp"
-        android:layout_marginBottom="113dp"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"
-        android:backgroundTint="@color/SpotifyPink"/>
-
-
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="225dp"
         android:layout_height="207dp"
-        android:layout_marginTop="4dp"
         android:src="@drawable/spotify"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="304dp"
-        android:layout_height="78dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/alfa_slab_one"
         android:text="Wrapped But Goated"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="259dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="259dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/SpotifyGreen"
+        android:text="Sign Up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/SpotifyPink"
+        android:text="Login"
+        app:layout_constraintTop_toBottomOf="@id/signupButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/SpotifyGreen"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

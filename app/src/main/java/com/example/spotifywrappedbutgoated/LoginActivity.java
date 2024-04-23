@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.spotifywrappedbutgoated.ui.WrappedFilter;
-import com.example.spotifywrappedbutgoated.ui.wrappedui;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText username;
     EditText password;
-    Button signupButton, loginButton;
+    Button signupButton, loginButton, settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         signupButton = findViewById(R.id.signupButton);
+        settingsButton = findViewById(R.id.settingsButton);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
 
@@ -111,24 +111,64 @@ public class LoginActivity extends AppCompatActivity {
                                 userExists = true;
                                 if (user.getData().values().toString().trim().equals("["+passText+"]")) {
                                     correctPass = true;
-                                    goToWrappedUI();
+                                    goToWrappedFilter();
                                 }
                             }
                         }
                     if (!userExists) {
                         Toast.makeText(getApplicationContext(), "That username doesn't exist", Toast.LENGTH_SHORT).show();
                     }
-                    if (!correctPass) {
+                    if (!correctPass && userExists) {
                         Toast.makeText(getApplicationContext(), "Incorrect password", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         });
+
+        settingsButton.setOnClickListener(v -> {
+            String userText = username.getText().toString().trim();
+            String passText = password.getText().toString().trim();
+
+            if (!userText.isEmpty() && !passText.isEmpty()) {
+                db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    boolean userExists = false;
+                    boolean correctPass = false;
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getId().trim().equals(userText)) {
+                                    userExists = true;
+                                    // Assuming the password is stored directly as a string in the document
+                                    if (document.getString("password").equals(passText)) {
+                                        correctPass = true;
+                                        goToUpdateLogin();
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!userExists) {
+                                Toast.makeText(getApplicationContext(), "That username doesn't exist", Toast.LENGTH_SHORT).show();
+                            } else if (!correctPass) {
+                                Toast.makeText(getApplicationContext(), "Incorrect password", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Failed to connect to database", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(getApplicationContext(), "Username and password must be filled out", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void authenticateSpotify() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI);
         builder.setScopes(new String[]{SCOPES});
+        builder.setShowDialog(true);
         AuthorizationRequest request = builder.build();
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -176,7 +216,7 @@ public class LoginActivity extends AppCompatActivity {
         return res.getString(res.getIdentifier(idName, "string", context.getPackageName()));
     }
 
-    public void goToWrappedUI() {
+    public void goToWrappedFilter() {
         String userText = username.getText().toString().trim();
         String passText = password.getText().toString().trim();
 
@@ -184,5 +224,15 @@ public class LoginActivity extends AppCompatActivity {
         wrappedIntent.putExtra("username", userText);
         wrappedIntent.putExtra("password", passText);
         startActivity(wrappedIntent);
+    }
+
+    public void goToUpdateLogin() {
+        String userText = username.getText().toString().trim();
+        String passText = password.getText().toString().trim();
+
+        Intent editIntent = new Intent(LoginActivity.this, UpdateLogin.class);
+        editIntent.putExtra("username", userText);
+        editIntent.putExtra("password", passText);
+        startActivity(editIntent);
     }
 }

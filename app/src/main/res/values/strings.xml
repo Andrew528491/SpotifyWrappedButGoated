@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpotifyWrappedButGoated</string>
+    <string name="app_name">Spotify Wrapped But Goated</string>
     <string name="authorization_error">Authorization Error</string>
     <string name="authorization_error_description_spotify">It appears that something went wrong on Spotify\'s end. We suggest checking the status of Spotify servers, restarting the app, and trying again.</string>
     <string name="authorization_error_description_appbackend">It appears that something went wrong on our end. We suggest restarting the app and trying again.</string>
