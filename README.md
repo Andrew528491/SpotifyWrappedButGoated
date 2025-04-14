@@ -1,0 +1,1 @@
+Mobile application using Android Studio, which allows users to view Spotify listening data from a variety of selected time frames, and analyze certain listening data metrics based on their Spotify profile. 
